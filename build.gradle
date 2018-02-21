@@ -22,5 +22,5 @@ dependencies {
     compile 'org.springframework:spring-orm:4.2.5.RELEASE'
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
     compile 'org.apache.tomcat:tomcat-dbcp:8.0.32'
-    compile 'com.h2database:h2:1.4.191'
+    compile 'com.h2database:h2:1.4.196'
 }

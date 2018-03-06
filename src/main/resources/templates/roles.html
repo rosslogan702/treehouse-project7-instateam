@@ -30,8 +30,8 @@
                 <form th:action="@{/roles}" method="post" th:object="${role}">
                     <h2>Manage Roles</h2>
                     <div>
-                        <ul th:each="role: ${roles}" class="checkbox-list">
-                            <li th:text="${role.name}"></li>
+                        <ul class="checkbox-list" >
+                            <li th:each="role: ${roles}" th:text="${role.name}"></li>
                         </ul>
                     </div>
                     <div class="actions add-new-role">

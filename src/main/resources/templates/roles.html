@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="x-ua-compatible" content="ie=edge"/>
@@ -30,8 +30,8 @@
                 <form th:action="@{/roles}" method="post" th:object="${role}">
                     <h2>Manage Roles</h2>
                     <div>
-                        <ul th:each="role: ${roles}" class="checkbox-list" >
-                            <li th:text="${role.name}"><span class="primary"></span></li>
+                        <ul th:each="role: ${roles}" class="checkbox-list">
+                            <li th:text="${role.name}"></li>
                         </ul>
                     </div>
                     <div class="actions add-new-role">

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,5 +38,19 @@ public class RoleController {
     public String addCategory(@Valid Role role) {
         roleService.save(role);
         return "redirect:/roles";
+    }
+
+    // Form for editing an existing role
+    @RequestMapping("roles/{roleId}/edit")
+    public String formEditCategory(@PathVariable Long roleId, Model model) {
+        // TODO: Add model attributes needed for new form
+        if(!model.containsAttribute("category")) {
+            model.addAttribute("role",roleService.findById(roleId));
+        }
+//        model.addAttribute("colors", Color.values());
+//        model.addAttribute("action", String.format("/categories/%s", categoryId));
+//        model.addAttribute("heading", "Edit Category");
+//        model.addAttribute("submit", "Update");
+        return "role_detail";
     }
 }

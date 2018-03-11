@@ -27,15 +27,15 @@
         </nav>
         <section>
             <div class="container wrapper">
-                <form th:action="@{/roles}" method="post" th:object="${role}">
+                <form th:action="@{|/roles/${role.id}|}" method="post" th:object="${role}">
                     <h2>Edit Role</h2>
                     <div class="actions add-new-role">
                         <input type="text" th:field="*{name}" placeholder="New Role..."/>
-                        <button type="submit" class="button">Add</button>
                     </div>
-                    <div class="actions add-new-role">
-                        <button type="reset" class=" button">Cancel</button>
-                        <button type="reset" class="button">Delete</button>
+                    <div class="actions edit-role">
+                        <button type="submit" class="button">Update</button>
+                        <button type="submit" class=" button">Cancel</button>
+                        <button type="submit" class="button">Delete</button>
                     </div>
                 </form>
             </div>

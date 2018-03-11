@@ -407,6 +407,13 @@ form .add-new-collaborator .button {
 	margin: 0;
 }
 
+form .edit-role .button {
+    width: 80px;
+    text-align: left;
+    float: left;
+    margin: 0 10px 0 0;
+}
+
 
 
 

@@ -53,4 +53,13 @@ public class RoleController {
 //        model.addAttribute("submit", "Update");
         return "role_detail";
     }
+
+    @RequestMapping(value = "/roles/{roleId}", method = RequestMethod.POST)
+    public String updateRole(@Valid Role role, BindingResult result, RedirectAttributes redirectAttributes) {
+        // TODO: Update category if valid data was received
+        roleService.save(role);
+
+        // TODO: Redirect browser to /categories
+        return "redirect:/roles";
+    }
 }

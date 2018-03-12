@@ -44,19 +44,27 @@ public class RoleController {
     @RequestMapping("roles/{roleId}/edit")
     public String formEditCategory(@PathVariable Long roleId, Model model) {
         // TODO: Add model attributes needed for new form
-        if(!model.containsAttribute("category")) {
+        if(!model.containsAttribute("role")) {
             model.addAttribute("role",roleService.findById(roleId));
         }
-//        model.addAttribute("colors", Color.values());
-//        model.addAttribute("action", String.format("/categories/%s", categoryId));
-//        model.addAttribute("heading", "Edit Category");
-//        model.addAttribute("submit", "Update");
+
         return "role_detail";
     }
 
     @RequestMapping(value = "/roles/{roleId}", method = RequestMethod.POST)
     public String updateRole(@Valid Role role, BindingResult result, RedirectAttributes redirectAttributes) {
         // TODO: Update category if valid data was received
+
+        if(result.hasErrors()) {
+
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.role",result);
+
+            redirectAttributes.addFlashAttribute("role", role);
+
+
+            // Redirect back to the form
+            return String.format("redirect:/roles/%s/edit", role.getId());
+        }
         roleService.save(role);
 
         // TODO: Redirect browser to /categories

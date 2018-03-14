@@ -415,7 +415,7 @@ form .add-new-collaborator .button {
 	margin: 0;
 }
 
-form .edit-role .button {
+form .edit-role .a .button {
     width: 80px;
     text-align: left;
     float: left;
@@ -431,11 +431,6 @@ form .edit-role .button {
     color: rgb(254,251,251);
     float: left;
 }
-
-
-
-
-
 
 
 

@@ -2,6 +2,7 @@ package com.rosslogan.instateam.web.controller;
 
 import com.rosslogan.instateam.model.Role;
 import com.rosslogan.instateam.service.RoleService;
+import com.rosslogan.instateam.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,21 +54,24 @@ public class RoleController {
 
     @RequestMapping(value = "/roles/{roleId}", method = RequestMethod.POST)
     public String updateRole(@Valid Role role, BindingResult result, RedirectAttributes redirectAttributes) {
-        // TODO: Update category if valid data was received
 
         if(result.hasErrors()) {
-
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.role",result);
-
             redirectAttributes.addFlashAttribute("role", role);
-
-
-            // Redirect back to the form
             return String.format("redirect:/roles/%s/edit", role.getId());
         }
         roleService.save(role);
-
-        // TODO: Redirect browser to /categories
         return "redirect:/roles";
     }
+
+    // Delete an existing category
+    @RequestMapping(value = "/roles/{roleId}/delete")
+    public String deleteRole(@PathVariable Long roleId, RedirectAttributes redirectAttributes) {
+        Role role = roleService.findById(roleId);
+        roleService.delete(role);
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Role Deleted!", FlashMessage.Status.SUCCESS));
+        return "redirect:/roles";
+    }
+
+
 }

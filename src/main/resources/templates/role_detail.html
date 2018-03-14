@@ -36,8 +36,8 @@
                     </div>
                     <div class="actions edit-role">
                         <button type="submit" class="button">Update</button>
-                        <button type="submit" class=" button">Cancel</button>
-                        <button type="submit" class="button">Delete</button>
+                        <a th:href="@{/roles}" type="submit" class="button">Cancel</a>
+                        <a th:href="@{|/roles/${role.id}/delete|}" type="submit" class="button" method="post">Delete</a>
                     </div>
                 </form>
             </div>

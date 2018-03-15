@@ -65,7 +65,7 @@ public class RoleController {
     }
 
     // Delete an existing category
-    @RequestMapping(value = "/roles/{roleId}/delete")
+    @RequestMapping(value = "/roles/{roleId}/delete", method = RequestMethod.POST)
     public String deleteRole(@PathVariable Long roleId, RedirectAttributes redirectAttributes) {
         Role role = roleService.findById(roleId);
         roleService.delete(role);

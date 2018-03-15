@@ -332,6 +332,11 @@ strong {
 form {
 	padding: 35px 35px 0 35px;
 }
+
+form .form {
+    padding: 100px 35px 0 35px;
+}
+
 form label {
 	display: block;
 	margin-bottom: 13px;
@@ -407,16 +412,24 @@ form .add-new-collaborator .custom-select {
 	margin: 0 10px 10px 0;
 	float: left;
 }
-form .add-new-role .button,
-form .add-new-collaborator .button {
-	width: 60px;
+form .button {
+	width: 100px;
 	text-align: left;
 	float: left;
 	margin: 0;
 }
 
+form .add-new-role .button,
+form .add-new-role a .button,
+form .add-new-collaborator .button {
+	width: 60px;
+	text-align: left;
+	float: left;
+	margin: 10px;
+}
+
 form .edit-role .a .button {
-    width: 80px;
+    width: 60px;
     text-align: left;
     float: left;
     margin: 0 10px 0 0;

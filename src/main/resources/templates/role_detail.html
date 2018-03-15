@@ -22,7 +22,7 @@
             <ul>
                 <li><a href="index.html">Projects</a></li>
                 <li><a href="collaborators.html">Collaborators</a></li>
-                <li class="selected"><a href="roles.html">Roles</a></li>
+                <li class="selected"><a th:href="@{/roles}">Roles</a></li>
             </ul>
         </nav>
         <section>
@@ -34,12 +34,17 @@
                         <input type="text" th:field="*{name}" placeholder="New Role..."/>
                         <div class = "error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                     </div>
-                    <div class="actions edit-role">
+                    <div class="actions add-new-role">
                         <button type="submit" class="button">Update</button>
                         <a th:href="@{/roles}" type="submit" class="button">Cancel</a>
-                        <a th:href="@{|/roles/${role.id}/delete|}" type="submit" class="button" method="post">Delete</a>
                     </div>
                 </form>
+                <div class="actions add-new-role">
+                    <form th:action="@{|/roles/${role.id}/delete|}" method="post" th:object="${role}">
+                        <input type="hidden" th:field="*{id}"/>
+                        <button type="submit" class="button">Delete</button>
+                    </form>
+                </div>
             </div>
         </section>
     </body>

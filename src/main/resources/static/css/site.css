@@ -208,11 +208,28 @@ strong {
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
+
 .actions:after {
 	content: "";
   	display: table;
   	clear: both;
 }
+
+.actions-role-detail {
+    padding: 25px 35px 15px 35px;
+    background: #FFF;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.actions-delete {
+	padding: 0px 0px 0px 0px;
+	background: #FFF;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	display: inline-block
+}
+
 @media only screen and (max-width: 700px) {
     .actions {border-radius: 0;}
 }
@@ -333,8 +350,8 @@ form {
 	padding: 35px 35px 0 35px;
 }
 
-form .form {
-    padding: 100px 35px 0 35px;
+form#delete-form {
+    padding: 0px 0px 0px 0px;
 }
 
 form label {
@@ -412,29 +429,28 @@ form .add-new-collaborator .custom-select {
 	margin: 0 10px 10px 0;
 	float: left;
 }
-form .button {
-	width: 100px;
-	text-align: left;
+
+form .delete-button{
+	padding: 11px 13px;
+	background: #55aa9d;
+	border: 2px solid #55aa9d;
+	border-radius: 5px;
+	text-decoration: none;
+	color: #FFF;
+	font-size: 18px;
+	margin: 0 10px 10px 0;
 	float: left;
-	margin: 0;
+	position: relative;
+
 }
 
 form .add-new-role .button,
-form .add-new-role a .button,
 form .add-new-collaborator .button {
-	width: 60px;
-	text-align: left;
-	float: left;
-	margin: 10px;
-}
-
-form .edit-role .a .button {
     width: 60px;
-    text-align: left;
+    text-align: center;
     float: left;
-    margin: 0 10px 0 0;
+    margin: 0;
 }
-
 
 .error .error-message {
     width: calc(100% - 100px);

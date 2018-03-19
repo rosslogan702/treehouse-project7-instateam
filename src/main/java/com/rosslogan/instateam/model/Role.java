@@ -14,7 +14,7 @@ public class Role {
     private Long id;
 
     @NotNull
-    @Pattern(regexp = "[a-zA-Z]+")
+    @Pattern(regexp = "[a-zA-Z -]+")
     private String name;
 
     public Role() {

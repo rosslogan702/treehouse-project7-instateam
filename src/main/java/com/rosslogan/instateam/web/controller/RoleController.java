@@ -24,19 +24,24 @@ public class RoleController {
     @SuppressWarnings("unchecked")
     @RequestMapping("/roles")
     public String listRoles(Model model) {
+        if(!model.containsAttribute("role")) {
+            model.addAttribute("role", new Role());
+        }
         // TODO: Get all roles
         List<Role> roles = roleService.findAll();
-
         model.addAttribute("roles",roles);
-        //Blank role attribute for adding a new role
-        model.addAttribute("role", new Role());
         return "roles";
     }
 
 
     // Add a category
     @RequestMapping(value = "/roles", method = RequestMethod.POST)
-    public String addCategory(@Valid Role role) {
+    public String addCategory(@Valid Role role, BindingResult result, RedirectAttributes redirectAttributes) {
+        if(result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.role",result);
+            redirectAttributes.addFlashAttribute("role", role);
+            return "redirect:/roles";
+        }
         roleService.save(role);
         return "redirect:/roles";
     }
@@ -48,7 +53,6 @@ public class RoleController {
         if(!model.containsAttribute("role")) {
             model.addAttribute("role",roleService.findById(roleId));
         }
-
         return "role_detail";
     }
 

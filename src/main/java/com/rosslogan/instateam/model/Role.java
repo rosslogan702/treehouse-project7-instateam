@@ -14,7 +14,7 @@ public class Role {
     private Long id;
 
     @NotNull
-    @Pattern(regexp = "[a-zA-Z -]+")
+    @Pattern(regexp = "[a-zA-Z -]+", message = "Invalid character(s) entered")
     private String name;
 
     public Role() {

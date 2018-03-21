@@ -4,9 +4,6 @@ import com.rosslogan.instateam.model.Role;
 
 import java.util.List;
 
-/**
- * Created by Ross on 20/02/2018.
- */
 public interface RoleDao {
     List<Role> findAll();
     Role findById(Long id);

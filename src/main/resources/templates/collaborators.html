@@ -27,16 +27,17 @@
         </nav>
         <section>
             <div class="container wrapper">
-                <form th:action="@{/collaborators}" method="post" th:object="${collaborators}">
+                <form th:action="@{/collaborators}" method="post" th:object="${collaborator}">
+                    <input type="hidden" th:field="*{id}"/>
                     <h2>Manage Collaborators</h2>
                     <ul class="checkbox-list">
                         <li th:each="collaborator: ${collaborators}">
                             <a th:text="${collaborator.name}"></a>
                             <div class="custom-select">
                                 <span class="dropdown-arrow"></span>
-                                <select th:field="*{role}">
+                                <select>
                                     <option value="" disabled="disabled">Role...</option>
-                                    <option th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}">Developer</option>
+                                    <option th:each="role : ${roles}" th:text="${role.name}">Developer</option>
                                 </select>
                             </div>
                         </li>
@@ -45,12 +46,12 @@
                         <input type="text" th:field="*{name}" placeholder="Name..."/>
                         <div class="custom-select">
                             <span class="dropdown-arrow"></span>
-                            <select th:field="*{role}">
-                                <option value="" disabled="disabled">Role...</option>
-                                <option th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}">Developer</option>
+                            <select th:field="*{role.id}">
+                                <option value="" disabled="disabled" >Role...</option>
+                                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                             </select>
                         </div>
-                        <a class="button" >Add</a>
+                        <button class="button" >Add</button>
                     </div>
                 </form>
             </div>

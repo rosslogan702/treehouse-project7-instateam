@@ -4,10 +4,12 @@ import com.rosslogan.instateam.model.Collaborator;
 import com.rosslogan.instateam.model.Role;
 import com.rosslogan.instateam.service.CollaboratorService;
 import com.rosslogan.instateam.service.RoleService;
+import com.rosslogan.instateam.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -46,6 +48,38 @@ public class CollaboratorController {
             return "redirect:/collaborators";
         }
         collaboratorService.save(collaborator);
+        return "redirect:/collaborators";
+    }
+
+    // Form for editing an existing collaborator
+    @RequestMapping("collaborators/{collaboratorId}/edit")
+    public String formEditCategory(@PathVariable Long collaboratorId, Model model) {
+        // TODO: Add model attributes needed for new form
+        if(!model.containsAttribute("collaborator")) {
+            model.addAttribute("collaborator",collaboratorService.findById(collaboratorId));
+        }
+        model.addAttribute("roles", roleService.findAll());
+        return "collaborator_detail";
+    }
+
+    @RequestMapping(value = "/collaborators/{collaboratorId}", method = RequestMethod.POST)
+    public String updateRole(@Valid Collaborator collaborator, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if(result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.collaborator",result);
+            redirectAttributes.addFlashAttribute("collaborator", collaborator);
+            return String.format("redirect:/collaborators/%s/edit", collaborator.getId());
+        }
+        collaboratorService.save(collaborator);
+        return "redirect:/collaborators";
+    }
+
+    // Delete an existing category
+    @RequestMapping(value = "/collaborators/{collaboratorId}/delete", method = RequestMethod.POST)
+    public String deleteRole(@PathVariable Long collaboratorId, RedirectAttributes redirectAttributes) {
+        Collaborator collaborator = collaboratorService.findById(collaboratorId);
+        collaboratorService.delete(collaborator);
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Collaborator Deleted!", FlashMessage.Status.SUCCESS));
         return "redirect:/collaborators";
     }
 }

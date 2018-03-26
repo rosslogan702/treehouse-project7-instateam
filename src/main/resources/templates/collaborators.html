@@ -32,7 +32,7 @@
                     <h2>Manage Collaborators</h2>
                     <ul class="checkbox-list">
                         <li th:each="collaborator: ${collaborators}">
-                            <a th:text="${collaborator.name}"></a>
+                            <a th:href="@{|/collaborators/${collaborator.id}/edit|}" th:text="${collaborator.name}"></a>
                             <div class="custom-select">
                                 <span class="dropdown-arrow"></span>
                                 <select>
@@ -41,7 +41,7 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="actions add-new-collaborator">
+                    <div class="actions add-new-collaborator" th:classappend="${#fields.hasErrors('name')}? 'error' : ''">
                         <input type="text" th:field="*{name}" placeholder="Name..."/>
                         <div class="custom-select">
                             <span class="dropdown-arrow"></span>
@@ -51,6 +51,7 @@
                             </select>
                         </div>
                         <button class="button" >Add</button>
+                        <div class = "error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                     </div>
                 </form>
             </div>

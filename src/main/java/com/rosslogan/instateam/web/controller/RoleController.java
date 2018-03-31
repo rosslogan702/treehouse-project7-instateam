@@ -1,6 +1,7 @@
 package com.rosslogan.instateam.web.controller;
 
 import com.rosslogan.instateam.model.Role;
+import com.rosslogan.instateam.service.CollaboratorService;
 import com.rosslogan.instateam.service.RoleService;
 import com.rosslogan.instateam.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;

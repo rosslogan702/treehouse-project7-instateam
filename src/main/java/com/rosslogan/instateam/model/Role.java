@@ -1,11 +1,9 @@
 package com.rosslogan.instateam.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 public class Role {
@@ -16,6 +14,13 @@ public class Role {
     @NotNull
     @Pattern(regexp = "[a-zA-Z -]+", message = "Invalid character(s) entered")
     private String name;
+
+    @OneToMany(mappedBy = "role")
+    private List<Collaborator> collaborators;
+
+    public List<Collaborator> getCollaborators() {
+        return collaborators;
+    }
 
     public Role() {
     }
@@ -34,5 +39,16 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        if (!id.equals(role.id)) return false;
+        return name.equals(role.name);
     }
 }

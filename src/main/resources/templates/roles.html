@@ -21,8 +21,8 @@
         <nav>
             <ul>
                 <li><a href="index.html">Projects</a></li>
-                <li><a href="collaborators.html">Collaborators</a></li>
-                <li class="selected"><a href="roles.html">Roles</a></li>
+                <li><a th:href="@{/collaborators}">Collaborators</a></li>
+                <li class="selected"><a th:href="@{/roles}">Roles</a></li>
             </ul>
         </nav>
         <section>
@@ -31,7 +31,7 @@
                     <h2>Manage Roles</h2>
                     <div>
                         <ul class="checkbox-list" >
-                            <li th:each="role: ${roles}">
+                            <li th:each="role: ${roles}" th:if="${role.name} != 'Unallocated'? _">
                                 <a th:href="@{|/roles/${role.id}/edit|}" th:text="${role.name}"></a>
                             </li>
                         </ul>

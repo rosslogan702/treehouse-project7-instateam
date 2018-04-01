@@ -13,6 +13,7 @@ public class Collaborator {
     @Pattern(regexp = "[a-zA-Z -]+", message = "Invalid character(s) entered")
     private String name;
     @ManyToOne
+    @NotNull
     private Role role;
 
     public Collaborator() {

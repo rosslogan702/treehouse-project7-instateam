@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
         <title>InstaTeam</title>
-        <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/site.css">
+        <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <link rel="stylesheet" href="css/normalize.css"/>
+        <link rel="stylesheet" href="css/site.css"/>
     </head>
     <body>
         <header>
@@ -20,7 +20,7 @@
         </header>
         <nav>
             <ul>
-                <li class="selected"><a href="index.html">Projects</a></li>
+                <li class="selected"><a th:href="@{/projects}">Projects</a></li>
                 <li><a href="collaborators.html">Collaborators</a></li>
                 <li><a href="roles.html">Roles</a></li>
             </ul>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -20,7 +20,7 @@
         </header>
         <nav>
             <ul>
-                <li class="selected"><a href="index.html">Projects</a></li>
+                <li class="selected"><a th:href="@{/projects}">Projects</a></li>
                 <li><a href="collaborators.html">Collaborators</a></li>
                 <li><a href="roles.html">Roles</a></li>
             </ul>

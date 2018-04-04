@@ -12,4 +12,9 @@ public class ProjectController {
         return "index";
     }
 
+    @RequestMapping("/projects/add")
+    public String addProject(Model model){
+        return "edit_project";
+    }
+
 }

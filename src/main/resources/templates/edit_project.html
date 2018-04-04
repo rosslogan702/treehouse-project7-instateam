@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
         <title>InstaTeam</title>
-        <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/site.css">
+        <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <link rel="stylesheet" href="/css/normalize.css"/>
+        <link rel="stylesheet" href="/css/site.css"/>
     </head>
     <body>
         <header>
             <div class="container">
                 <div class="site-header">
                     <a class="logo" href="index.html">InstaTeam</a>
-                    <a class="new-project button icon-left" href="#"><i class="material-icons">add</i> New Project</a>
+                    <a class="new-project button icon-left" th:href="@{/projects/add}"><i class="material-icons">add</i> New Project</a>
                 </div>
             </div>
         </header>
         <nav>
             <ul>
                 <li class="selected"><a th:href="@{/projects}">Projects</a></li>
-                <li><a href="collaborators.html">Collaborators</a></li>
-                <li><a href="roles.html">Roles</a></li>
+                <li><a th:href="@{/collaborators}">Collaborators</a></li>
+                <li><a th:href="@{/roles}">Roles</a></li>
             </ul>
         </nav>
         <section>
@@ -30,7 +30,7 @@
                 <form>
                     <div>
                         <label for="project_name"> Project Name:</label>
-                        <input type="text" name="project_name">
+                        <input type="text" name="project_name"/>
                     </div>
                     <div>
                         <label for="project_description">Project Description:</label>
@@ -51,25 +51,25 @@
                         <label for="project_roles">Project Roles:</label>
                         <ul class="checkbox-list">
                             <li>
-                                <input type="checkbox" name="project_roles" value="Developer">
+                                <input type="checkbox" name="project_roles" value="Developer"/>
                                 <span class="primary"> Developer</span>
                             </li>
                             <li>
-                                <input type="checkbox" name="project_roles" value="Designer">
+                                <input type="checkbox" name="project_roles" value="Designer"/>
                                 <span class="primary"> Designer</span>
                             </li>
                             <li>
-                                <input type="checkbox" name="project_roles" value="QA">
+                                <input type="checkbox" name="project_roles" value="QA"/>
                                 <span class="primary"> QA</span>
                             </li>
                             <li>
-                                <input type="checkbox" name="project_roles" value="DevOps">
+                                <input type="checkbox" name="project_roles" value="DevOps"/>
                                 <span class="primary"> DevOps</span>
                             </li>
                         </ul>
                     </div>
                     <div class="actions">
-                        <input type="submit" value="Save" class="button">
+                        <input type="submit" value="Save" class="button"/>
                         <a href="#" class="button button-secondary">Cancel</a>
                     </div>
                 </form>

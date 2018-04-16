@@ -3,6 +3,7 @@ package com.rosslogan.instateam.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 public class Collaborator {
@@ -14,6 +15,8 @@ public class Collaborator {
     private String name;
     @ManyToOne
     private Role role;
+    @ManyToMany(mappedBy = "collaborators")
+    private List<Project> projects;
 
     public Collaborator() {
     }

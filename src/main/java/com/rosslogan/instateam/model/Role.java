@@ -18,12 +18,17 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private List<Collaborator> collaborators;
 
+    @ManyToMany(mappedBy = "rolesNeeded")
+    private List<Project> projects;
+
+    public Role() {
+    }
+
     public List<Collaborator> getCollaborators() {
         return collaborators;
     }
 
-    public Role() {
-    }
+
 
     public Long getId() {
         return id;

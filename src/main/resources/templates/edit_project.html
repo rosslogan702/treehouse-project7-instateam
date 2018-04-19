@@ -50,7 +50,7 @@
                         <label>Project Roles:</label>
                         <ul class="checkbox-list">
                             <li th:each="role: ${roles}" th:if="${role.name != 'Unallocated'}">
-                                <input type="checkbox" name="project_roles" th:field="*{rolesNeeded}" th:value="${role.id}"/>
+                                <input type="checkbox" th:field="*{rolesNeeded}" th:value="${role.id}"/>
                                 <span class="primary" th:text="${role.name}"> Developer</span>
                             </li>
                         </ul>

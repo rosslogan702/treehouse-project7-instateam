@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
         <title>InstaTeam</title>
-        <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/site.css">
+        <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <link rel="stylesheet" href="/css/normalize.css"/>
+        <link rel="stylesheet" href="/css/site.css"/>
     </head>
     <body>
         <header>
@@ -21,23 +21,23 @@
         <nav>
             <ul>
                 <li class="selected"><a th:href="@{/projects}">Projects</a></li>
-                <li><a href="collaborators.html">Collaborators</a></li>
-                <li><a href="roles.html">Roles</a></li>
+                <li><a th:href="@{/collaborators}">Collaborators</a></li>
+                <li><a th:href="@{/roles}">Roles</a></li>
             </ul>
         </nav>
         <section>
             <div class="container wrapper">
                 <div class="project-list single">
                     <div class="project">
-                        <h2>Website Project</h2>
-                        <p>Design and build a custom website</p>
-                        <span class="tag active">Active</span>
+                        <h2 th:text="${project.name}">Website Project</h2>
+                        <p th:text="${project.description}">Design and build a custom website</p>
+                        <span class="tag active" th:text="${project.status}">Active</span>
                     </div>
                     <div class="roles-collaborators">
                         <h3>Roles &amp; Collaborators</h3>
-                        <div class="list-item">
-                            <span class="primary">Developer</span>
-                            <span class="secondary">Michael Pemulis</span>
+                        <div class="list-item" th:each="role : ${project.rolesNeeded}">
+                            <span class="primary" th:text="${role.name}">Developer</span>
+                            <span class="secondary" th:text="${role.name}">Michael Pemulis</span>
                         </div>
                         <div class="list-item">
                             <span class="primary">Designer</span>
@@ -53,8 +53,8 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <a class="button" href="edit_project.html">Edit Project</a>
-                        <a class="button" href="project_collaborators.html">Edit Collaborators</a>
+                        <a class="button" th:href="@{/edit_project}">Edit Project</a>
+                        <a class="button" th:href="@{/project_collaborators}">Edit Collaborators</a>
                     </div>
                 </div>
             </div>

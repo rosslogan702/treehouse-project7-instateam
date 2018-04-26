@@ -1,6 +1,7 @@
 package com.rosslogan.instateam.dao;
 
 import com.rosslogan.instateam.model.Project;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class ProjectDaoImpl implements ProjectDao {
     public Project findById(Long id) {
         Session session = sessionFactory.openSession();
         Project project = session.get(Project.class, id);
-        // Might need to add something in here to do with the hibernate initialize
-        //Hibernate.initialize(role.getGifs());
+        Hibernate.initialize(project.getRolesNeeded());
+        Hibernate.initialize(project.getCollaborators());
         session.close();
         return project;
     }

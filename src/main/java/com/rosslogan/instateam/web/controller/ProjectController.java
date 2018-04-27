@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,7 +40,7 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/projects/add")
-    public String formAddProject(Model model){
+    public String formAddNewProject(Project project, Model model){
         if(!model.containsAttribute("project")) {
             model.addAttribute("project",new Project());
         }
@@ -51,13 +52,28 @@ public class ProjectController {
         return "edit_project";
     }
 
-    // Form for editing an existing collaborator
-    @RequestMapping("projects/{projectId}/edit")
-    public String formEditProject(@PathVariable Long projectId, Model model) {
-        // TODO: Add model attributes needed for new form
+    @RequestMapping(value="/projects/{projectId}/edit")
+    public String formEditExistingProject(@PathVariable Long projectId, Model model){
+        if(!model.containsAttribute("project")){
+            Project project = projectService.findById(projectId);
+            List<Role> roles = roleService.findAll();
+            model.addAttribute("roles", roles);
+            model.addAttribute("project", project);
+            model.addAttribute("statuses", ProjectStatus.values());
+        }
+        return "edit_project";
+    }
+
+    @RequestMapping("projects/{projectId}/detail")
+    public String projectDetail(@PathVariable Long projectId, Model model) {
         if(!model.containsAttribute("project")) {
             Project project = projectService.findById(projectId);
             model.addAttribute("project",project);
+            List<Role> roles = project.getRolesNeeded();
+            model.addAttribute("roles", roles);
+            Collaborator default_collaborator = new Collaborator();
+            default_collaborator.setName("Unallocated");
+            model.addAttribute("default_collaborator", default_collaborator);
         }
         return "project_detail";
     }

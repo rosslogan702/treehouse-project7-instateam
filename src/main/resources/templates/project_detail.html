@@ -35,25 +35,13 @@
                     </div>
                     <div class="roles-collaborators">
                         <h3>Roles &amp; Collaborators</h3>
-                        <div class="list-item" th:each="role : ${project.rolesNeeded}">
+                        <div class="list-item" th:each="role : ${roles}">
                             <span class="primary" th:text="${role.name}">Developer</span>
-                            <span class="secondary" th:text="${role.name}">Michael Pemulis</span>
-                        </div>
-                        <div class="list-item">
-                            <span class="primary">Designer</span>
-                            <span class="secondary">Don Gately</span>
-                        </div>
-                        <div class="list-item">
-                            <span class="primary">QA</span>
-                                <span class="secondary">Joelle Van Dyne</span>
-                            </div>
-                        <div class="list-item">
-                            <span class="primary">DevOps</span>
-                            <span class="secondary">[Unassigned]</span>
+                            <span class="secondary" th:text="${default_collaborator.name}">Michael Pemulis</span>
                         </div>
                     </div>
                     <div class="actions">
-                        <a class="button" th:href="@{/edit_project}">Edit Project</a>
+                        <a class="button" th:href="@{|/projects/${project.id}/edit|}">Edit Project</a>
                         <a class="button" th:href="@{/project_collaborators}">Edit Collaborators</a>
                     </div>
                 </div>

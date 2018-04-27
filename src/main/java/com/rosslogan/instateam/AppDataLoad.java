@@ -1,7 +1,9 @@
 package com.rosslogan.instateam;
 
 
+import com.rosslogan.instateam.model.Collaborator;
 import com.rosslogan.instateam.model.Role;
+import com.rosslogan.instateam.service.CollaboratorService;
 import com.rosslogan.instateam.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -13,17 +15,30 @@ import java.util.List;
 public class AppDataLoad implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     RoleService roleService;
+    @Autowired
+    CollaboratorService collaboratorService;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         List<Role> allRoles = roleService.findAll();
+        boolean unallocated_available = false;
         for(Role role: allRoles){
             if(role.getName().equals("Unallocated")){
-                return ;
+                break;
             }
         }
         Role role = new Role();
         role.setName("Unallocated");
         roleService.save(role);
+
+        List<Collaborator> allCollaborators = collaboratorService.findAll();
+        for(Collaborator collaborator: allCollaborators){
+            if(collaborator.getName().equals("Unallocated")){
+                return ;
+            }
+        }
+        Collaborator collaborator = new Collaborator();
+        collaborator.setName("Unallocated");
+        collaboratorService.save(collaborator);
     }
 }

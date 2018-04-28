@@ -24,12 +24,14 @@ public class AppDataLoad implements ApplicationListener<ApplicationReadyEvent> {
         boolean unallocated_available = false;
         for(Role role: allRoles){
             if(role.getName().equals("Unallocated")){
-                break;
+                unallocated_available = true;
             }
         }
-        Role role = new Role();
-        role.setName("Unallocated");
-        roleService.save(role);
+        if(!unallocated_available){
+            Role role = new Role();
+            role.setName("Unallocated");
+            roleService.save(role);
+        }
 
         List<Collaborator> allCollaborators = collaboratorService.findAll();
         for(Collaborator collaborator: allCollaborators){

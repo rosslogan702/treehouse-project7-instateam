@@ -2,6 +2,7 @@ package com.rosslogan.instateam.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -10,8 +11,10 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @Pattern(regexp = "[a-zA-Z -]+", message = "Invalid character(s) entered for project name")
     private String name;
     @NotNull
+    @Pattern(regexp = "[a-zA-Z -]+", message = "Invalid character(s) entered for project description")
     private String description;
     private String status;
     @ManyToMany(cascade = {CascadeType.ALL})

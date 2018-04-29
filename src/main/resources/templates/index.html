@@ -31,7 +31,7 @@
                     <div class="project" th:each="project : ${projects}">
                         <h2><a th:href="@{|/projects/${project.id}/detail|}" th:text="${project.name}">Website Project</a></h2>
                         <p th:text="${project.description}">Design and build a custom website</p>
-                        <span class="tag active" th:text="${project.status}">Active</span>
+                        <span class="tag" th:classappend="${#strings.toLowerCase(project.status)}" th:text="${project.status}">Active</span>
                     </div>
                 </div>
             </div>

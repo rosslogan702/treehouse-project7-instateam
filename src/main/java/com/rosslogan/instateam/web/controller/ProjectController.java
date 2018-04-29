@@ -35,12 +35,17 @@ public class ProjectController {
 
     @RequestMapping(value ="/projects", method = RequestMethod.POST)
     public String addProject(@Valid Project project, BindingResult result, RedirectAttributes redirectAttributes){
+        if(result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.project",result);
+            redirectAttributes.addFlashAttribute("project", project);
+            return "redirect:/projects/add";
+        }
         projectService.save(project);
         return "redirect:/projects";
     }
 
     @RequestMapping(value = "/projects/add")
-    public String formAddNewProject(Project project, Model model){
+    public String formAddNewProject(Model model){
         if(!model.containsAttribute("project")) {
             model.addAttribute("project",new Project());
         }
@@ -78,4 +83,8 @@ public class ProjectController {
         return "project_detail";
     }
 
+    @RequestMapping("projects/{projectId}/collaborator")
+    public String projectCollaborators(@PathVariable Long projectId, Model model){
+        return "project_collaborators";
+    }
 }

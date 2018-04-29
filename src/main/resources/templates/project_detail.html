@@ -35,6 +35,7 @@
                     </div>
                     <div class="roles-collaborators">
                         <h3>Roles &amp; Collaborators</h3>
+                        <h3 th:if="${#lists.isEmpty(roles)}" th:text="'No roles selected! Go to Edit Projects to add roles!'"></h3>
                         <div class="list-item" th:each="role : ${roles}">
                             <span class="primary" th:text="${role.name}">Developer</span>
                             <span class="secondary" th:text="${default_collaborator.name}">Michael Pemulis</span>
@@ -42,7 +43,7 @@
                     </div>
                     <div class="actions">
                         <a class="button" th:href="@{|/projects/${project.id}/edit|}">Edit Project</a>
-                        <a class="button" th:href="@{/project_collaborators}">Edit Collaborators</a>
+                        <a class="button" th:href="@{|/projects/${project.id}/collaborator|}">Edit Collaborators</a>
                     </div>
                 </div>
             </div>

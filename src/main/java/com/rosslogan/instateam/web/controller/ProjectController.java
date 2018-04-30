@@ -90,15 +90,15 @@ public class ProjectController {
         return "project_collaborators";
     }
 
-    @RequestMapping(value = "/projects/update/collaborators", method = RequestMethod.POST)
-    public String updateProjectCollaborators(@Valid Project project, BindingResult result,
+    @RequestMapping(value = "/projects/{projectId}/update/collaborators", method = RequestMethod.POST)
+    public String updateProjectCollaborators(@PathVariable Long projectId, @Valid Project project, BindingResult result,
                                              RedirectAttributes redirectAttributes){
         if(result.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.project",result);
             redirectAttributes.addFlashAttribute("project", project);
-            return String.format("redirect:/projects/%s/collaborator");
+            return String.format("redirect:/projects/%s/collaborator", projectId.toString());
         }
         projectService.save(project);
-        return String.format("redirect:/projects/%s/detail");
+        return String.format("redirect:/projects/%s/detail", projectId.toString());
     }
 }

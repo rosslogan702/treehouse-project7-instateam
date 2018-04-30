@@ -83,8 +83,22 @@ public class ProjectController {
         return "project_detail";
     }
 
-    @RequestMapping("projects/{projectId}/collaborator")
-    public String projectCollaborators(@PathVariable Long projectId, Model model){
+    @RequestMapping("/projects/{projectId}/collaborator")
+    public String formEditProjectCollaborators(@PathVariable Long projectId, Model model){
+        Project project = projectService.findById(projectId);
+        model.addAttribute("project", project);
         return "project_collaborators";
+    }
+
+    @RequestMapping(value = "/projects/update/collaborators", method = RequestMethod.POST)
+    public String updateProjectCollaborators(@Valid Project project, BindingResult result,
+                                             RedirectAttributes redirectAttributes){
+        if(result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.project",result);
+            redirectAttributes.addFlashAttribute("project", project);
+            return String.format("redirect:/projects/%s/collaborator");
+        }
+        projectService.save(project);
+        return String.format("redirect:/projects/%s/detail");
     }
 }

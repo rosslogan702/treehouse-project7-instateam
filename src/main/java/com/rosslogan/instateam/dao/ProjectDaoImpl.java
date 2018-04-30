@@ -35,6 +35,7 @@ public class ProjectDaoImpl implements ProjectDao {
         Project project = session.get(Project.class, id);
         Hibernate.initialize(project.getRolesNeeded());
         Hibernate.initialize(project.getCollaborators());
+        project.getRolesNeeded().forEach(r -> Hibernate.initialize(r.getCollaborators()));
         session.close();
         return project;
     }

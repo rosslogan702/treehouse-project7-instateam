@@ -1,6 +1,7 @@
 package com.rosslogan.instateam.dao;
 
 import com.rosslogan.instateam.model.Collaborator;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class CollaboratorDaoImpl implements CollaboratorDao {
         Session session = sessionFactory.openSession();
         Collaborator collaborator = session.get(Collaborator.class, id);
         // Might need to add something in here to do with the hibernate initialize
-        //Hibernate.initialize(role.getGifs());
+        Hibernate.initialize(collaborator.getRole());
         session.close();
         return collaborator;
     }

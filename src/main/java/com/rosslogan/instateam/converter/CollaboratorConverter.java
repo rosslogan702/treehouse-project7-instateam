@@ -18,6 +18,7 @@ public class CollaboratorConverter implements Converter<String, Collaborator> {
 
     @Override
     public Collaborator convert(String source) {
+
         return collaboratorDao.findById(new Long(source));
     }
 

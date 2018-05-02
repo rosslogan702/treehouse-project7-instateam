@@ -17,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProjectController {
@@ -71,9 +73,17 @@ public class ProjectController {
 
     @RequestMapping("projects/{projectId}/detail")
     public String projectDetail(@PathVariable Long projectId, Model model) {
+        //TODO: Fix project detail now that collaborators can be edited, still showing unallocated all the time
+        // use roles and collaborator from project rather than explicit
+        // Use a map to map the roles and collaborators in the controller here rather than just project, it's the id
+        // that ties them together
+        // Tidy up the entries for better testing
+        // Then consider the extra credit
         if(!model.containsAttribute("project")) {
             Project project = projectService.findById(projectId);
             model.addAttribute("project",project);
+            Map<Role, Collaborator> roleCollabMapping = getRoleCollabMapping(project);
+            model.addAttribute("roleCollabMapping", roleCollabMapping);
             List<Role> roles = project.getRolesNeeded();
             model.addAttribute("roles", roles);
             Collaborator default_collaborator = new Collaborator();
@@ -81,6 +91,26 @@ public class ProjectController {
             model.addAttribute("default_collaborator", default_collaborator);
         }
         return "project_detail";
+    }
+
+    private Map<Role,Collaborator> getRoleCollabMapping(Project project) {
+        List<Role> rolesNeeded = project.getRolesNeeded();
+        List<Collaborator> collaborators = project.getCollaborators();
+        Map<Role, Collaborator> roleCollaboratorMap = new HashMap<>();
+
+        for(Role role: rolesNeeded){
+            for(Collaborator collaborator: collaborators){
+                if (role.getId().equals(collaborator.getRole().getId())){
+                    roleCollaboratorMap.put(role, collaborator);
+                }
+            }
+            if (!roleCollaboratorMap.containsKey(role)){
+                Collaborator unallocated = new Collaborator();
+                unallocated.setName("Unallocated");
+                roleCollaboratorMap.put(role, unallocated);
+            }
+        }
+        return roleCollaboratorMap;
     }
 
     @RequestMapping("/projects/{projectId}/collaborator")
@@ -91,14 +121,16 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/projects/{projectId}/update/collaborators", method = RequestMethod.POST)
-    public String updateProjectCollaborators(@PathVariable Long projectId, @Valid Project project, BindingResult result,
+    public String updateProjectCollaborators(@PathVariable Long projectId, Project project, BindingResult result,
                                              RedirectAttributes redirectAttributes){
         if(result.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.project",result);
             redirectAttributes.addFlashAttribute("project", project);
             return String.format("redirect:/projects/%s/collaborator", projectId.toString());
         }
-        projectService.save(project);
+        Project default_project = projectService.findById(projectId);
+        default_project.setCollaborators(project.getCollaborators());
+        projectService.save(default_project);
         return String.format("redirect:/projects/%s/detail", projectId.toString());
     }
 }

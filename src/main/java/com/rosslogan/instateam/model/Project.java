@@ -11,10 +11,10 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Pattern(regexp = "[a-zA-Z -]+", message = "Invalid character(s) entered for project name")
+    @Pattern(regexp = "[a-zA-Z0-9 -]+", message = "Invalid character(s) entered for project name")
     private String name;
     @NotNull
-    @Pattern(regexp = "[a-zA-Z -]+", message = "Invalid character(s) entered for project description")
+    @Pattern(regexp = "[a-zA-Z0-9 -]+", message = "Invalid character(s) entered for project description")
     private String description;
     private String status;
     @ManyToMany(cascade = {CascadeType.ALL})

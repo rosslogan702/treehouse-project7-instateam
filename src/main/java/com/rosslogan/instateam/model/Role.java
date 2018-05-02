@@ -55,4 +55,9 @@ public class Role {
         if (!id.equals(role.id)) return false;
         return name.equals(role.name);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

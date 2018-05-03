@@ -31,7 +31,7 @@
                     <div class="project">
                         <h2 th:text="${project.name}">Website Project</h2>
                         <p th:text="${project.description}">Design and build a custom website</p>
-                        <span class="tag active" th:text="${project.status}">Active</span>
+                        <span class="tag " th:classappend="${#strings.toLowerCase(project.status)}" th:text="${project.status}">Active</span>
                     </div>
                     <div class="roles-collaborators">
                         <h3>Roles &amp; Collaborators</h3>
@@ -41,10 +41,15 @@
                             <span class="secondary" th:text="${roleCollabEntry.value.name}">Michael Pemulis</span>
                         </div>
                     </div>
-                    <div class="actions">
+                    <div class="actions-delete-project">
                         <a class="button" th:href="@{|/projects/${project.id}/edit|}">Edit Project</a>
                         <a class="button" th:href="@{|/projects/${project.id}/collaborator|}">Edit Collaborators</a>
                     </div>
+                </div>
+                <div class = "actions-delete">
+                    <form id="delete-form" th:action="@{|/projects/${project.id}/delete|}" method="post">
+                        <button class="button">Delete</button>
+                    </form>
                 </div>
             </div>
         </section>

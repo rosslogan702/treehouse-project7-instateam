@@ -6,6 +6,7 @@ import com.rosslogan.instateam.model.Project;
 import com.rosslogan.instateam.model.Role;
 import com.rosslogan.instateam.service.ProjectService;
 import com.rosslogan.instateam.service.RoleService;
+import com.rosslogan.instateam.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,26 +93,6 @@ public class ProjectController {
         return "project_detail";
     }
 
-    private Map<Role,Collaborator> getRoleCollabMapping(Project project) {
-        List<Role> rolesNeeded = project.getRolesNeeded();
-        List<Collaborator> collaborators = project.getCollaborators();
-        Map<Role, Collaborator> roleCollaboratorMap = new HashMap<>();
-
-        for(Role role: rolesNeeded){
-            for(Collaborator collaborator: collaborators){
-                if (role.getId().equals(collaborator.getRole().getId())){
-                    roleCollaboratorMap.put(role, collaborator);
-                }
-            }
-            if (!roleCollaboratorMap.containsKey(role)){
-                Collaborator unallocated = new Collaborator();
-                unallocated.setName("Unallocated");
-                roleCollaboratorMap.put(role, unallocated);
-            }
-        }
-        return roleCollaboratorMap;
-    }
-
     @RequestMapping("/projects/{projectId}/collaborator")
     public String formEditProjectCollaborators(@PathVariable Long projectId, Model model){
         Project project = projectService.findById(projectId);
@@ -132,5 +112,34 @@ public class ProjectController {
         default_project.setCollaborators(project.getCollaborators());
         projectService.save(default_project);
         return String.format("redirect:/projects/%s/detail", projectId.toString());
+    }
+
+    // Delete an existing category
+    @RequestMapping(value = "/projects/{projectId}/delete", method = RequestMethod.POST)
+    public String deleteProject(@PathVariable Long projectId, RedirectAttributes redirectAttributes) {
+        Project project = projectService.findById(projectId);
+        projectService.delete(project);
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Project Deleted!", FlashMessage.Status.SUCCESS));
+        return "redirect:/projects";
+    }
+
+    private Map<Role,Collaborator> getRoleCollabMapping(Project project) {
+        List<Role> rolesNeeded = project.getRolesNeeded();
+        List<Collaborator> collaborators = project.getCollaborators();
+        Map<Role, Collaborator> roleCollaboratorMap = new LinkedHashMap<>();
+
+        for(Role role: rolesNeeded){
+            for(Collaborator collaborator: collaborators){
+                if (role.getId().equals(collaborator.getRole().getId())){
+                    roleCollaboratorMap.put(role, collaborator);
+                }
+            }
+            if (!roleCollaboratorMap.containsKey(role)){
+                Collaborator unallocated = new Collaborator();
+                unallocated.setName("Unallocated");
+                roleCollaboratorMap.put(role, unallocated);
+            }
+        }
+        return roleCollaboratorMap;
     }
 }

@@ -230,6 +230,14 @@ strong {
 	display: inline-block
 }
 
+.actions-delete-project {
+	padding: 25px 35px 0px 25px;
+	background: #FFF;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+
 @media only screen and (max-width: 700px) {
     .actions {border-radius: 0;}
 }
@@ -431,7 +439,7 @@ form .add-new-collaborator .custom-select {
 }
 
 form .delete-button{
-	padding: 11px 13px;
+	padding: 0px;
 	background: #55aa9d;
 	border: 2px solid #55aa9d;
 	border-radius: 5px;

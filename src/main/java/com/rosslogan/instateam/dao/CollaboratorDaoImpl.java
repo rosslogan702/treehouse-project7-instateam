@@ -33,6 +33,7 @@ public class CollaboratorDaoImpl implements CollaboratorDao {
     public Collaborator findById(Long id) {
         Session session = sessionFactory.openSession();
         Collaborator collaborator = session.get(Collaborator.class, id);
+        Hibernate.initialize(collaborator.getProjects());
         Hibernate.initialize(collaborator.getRole());
         session.close();
         return collaborator;

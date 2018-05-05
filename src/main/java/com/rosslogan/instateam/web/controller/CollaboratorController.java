@@ -1,10 +1,12 @@
 package com.rosslogan.instateam.web.controller;
 
 import com.rosslogan.instateam.model.Collaborator;
+import com.rosslogan.instateam.model.Project;
 import com.rosslogan.instateam.model.Role;
 import com.rosslogan.instateam.service.CollaboratorService;
 import com.rosslogan.instateam.service.RoleService;
 import com.rosslogan.instateam.web.FlashMessage;
+import org.h2.jdbc.JdbcSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -53,7 +56,7 @@ public class CollaboratorController {
 
     // Form for editing an existing collaborator
     @RequestMapping("collaborators/{collaboratorId}/edit")
-    public String formEditCategory(@PathVariable Long collaboratorId, Model model) {
+    public String formEditCollaborator(@PathVariable Long collaboratorId, Model model) {
         // TODO: Add model attributes needed for new form
         if(!model.containsAttribute("collaborator")) {
             model.addAttribute("collaborator",collaboratorService.findById(collaboratorId));
@@ -63,7 +66,7 @@ public class CollaboratorController {
     }
 
     @RequestMapping(value = "/collaborators/{collaboratorId}", method = RequestMethod.POST)
-    public String updateRole(@Valid Collaborator collaborator, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String updateCollaborator(@Valid Collaborator collaborator, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.collaborator",result);
@@ -76,10 +79,17 @@ public class CollaboratorController {
 
     // Delete an existing category
     @RequestMapping(value = "/collaborators/{collaboratorId}/delete", method = RequestMethod.POST)
-    public String deleteRole(@PathVariable Long collaboratorId, RedirectAttributes redirectAttributes) {
+    public String deleteCollaborator(@PathVariable Long collaboratorId, RedirectAttributes redirectAttributes) {
         Collaborator collaborator = collaboratorService.findById(collaboratorId);
-        collaboratorService.delete(collaborator);
-        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Collaborator Deleted!", FlashMessage.Status.SUCCESS));
-        return "redirect:/collaborators";
+        List<Project> projects = collaborator.getProjects();
+        if(projects.size() > 0){
+            redirectAttributes.addFlashAttribute("flash", new FlashMessage("Collaborator Deletion Failed! This collaborator is in use in a project! Please delete from project first!", FlashMessage.Status.FAILURE));
+            redirectAttributes.addFlashAttribute("collaborator", collaborator);
+            return String.format("redirect:/collaborators/%s/edit", collaborator.getId());
+        } else {
+            collaboratorService.delete(collaborator);
+            redirectAttributes.addFlashAttribute("flash", new FlashMessage("Collaborator Deleted!", FlashMessage.Status.SUCCESS));
+            return "redirect:/collaborators";
+        }
     }
 }

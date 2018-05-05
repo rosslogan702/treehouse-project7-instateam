@@ -44,4 +44,8 @@ public class Collaborator {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
 }

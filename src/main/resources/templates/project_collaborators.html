@@ -30,7 +30,7 @@
                 <form th:action="@{|/projects/${project.id}/update/collaborators|}" method="post" th:object="${project}">
                     <label th:text="|Edit: ${project.name}" >Edit Collaborators: Website Project</label>
                     <ul class="checkbox-list">
-                        <li th:each="role : *{rolesNeeded}" th:if="${role.name != 'Unallocated'}">
+                        <li th:each="role : *{rolesNeeded}">
                             <span th:class="primary" th:text="${role.name}">Developer</span>
                             <div class="custom-select">
                                 <span class="dropdown-arrow"></span>
